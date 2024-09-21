@@ -22,7 +22,7 @@ function Forecast({ weatherType }) {
   const search = async (city) => {
     try {
       const response = await axios.get(
-       `${apiKeys.base}/forecast.json?key=${apiKeys.key}&q=${city}`
+       `https://api.weatherapi.com/v1/forecast.json?key=${apiKeys.key}&q=${city}`
 
       );
       setWeather(response.data);
