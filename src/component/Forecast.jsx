@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import apiKeys from "./apikeys";
 import { WiDaySunny, WiRain, WiSnow, WiThunderstorm, WiCloudy } from "weather-icons-react";
-
+import { CiSearch } from "react-icons/ci";
 function Forecast({ weatherType }) {
   const [query, setQuery] = useState("");
   const [error, setError] = useState(null);
@@ -62,10 +62,7 @@ function Forecast({ weatherType }) {
             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           />
           <div className="img-box" onClick={handleSearch}>
-            <img
-              src="https://images.avishkaar.cc/workflow/newhp/search-white.png"
-              alt="Search"
-            />
+          <CiSearch />  
           </div>
         </div>
 
