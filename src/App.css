@@ -224,7 +224,13 @@ h1 {
   letter-spacing: 7px;
   margin-top: 50px;
 }
-
+.data{
+  margin-top: 20px;
+  gap: 20px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  color: wheat;
+}
 .container {
   width: 65%;
   height: 90vh;

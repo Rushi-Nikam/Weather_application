@@ -58,8 +58,8 @@ const WeeklyForecast = () => {
                 <button type="submit">Search</button>
             </form>
 
-            <ul>
-                {forecastData.map((day) => (
+            <ul className="data">
+                {forecastData.map((day) => ( 
                     <li key={day.date}>
                         <h3>{day.date}</h3>
                         <p>Condition: {day.day.condition.text}</p>
