@@ -44,6 +44,8 @@ function Forecast({ weatherType }) {
     }
   };
 
+  
+
   return (
     <div className="forecast">
       <div className="forecast-icon">

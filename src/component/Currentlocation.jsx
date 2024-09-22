@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import apikeys from "./apikeys"; // Make sure apikeys has { key: "your_api_key", base: "https://api.weatherapi.com/v1/current" }
+import apikeys from "./apikeys"; // Ensure apikeys has { key: "your_api_key", base: "https://api.weatherapi.com/v1/current" }
 import Forecast from "./Forecast";
-import loader from '/images/WeatherIcons.gif';
+import loader from "/images/WeatherIcons.gif"; // Adjust the path if necessary
 
 // Utility function to format the date
 const dateBuilder = (d) => {
@@ -23,13 +23,13 @@ const dateBuilder = (d) => {
 
 const Weather = () => {
     const [time, setTime] = useState(new Date());
-    const [location, setLocation] = useState({ lat: undefined, lon: undefined });
-    const [errorMessage, setErrorMessage] = useState(undefined);
+    const [location, setLocation] = useState({ lat: null, lon: null });
+    const [errorMessage, setErrorMessage] = useState(null);
     const [weatherData, setWeatherData] = useState({
-        temperatureC: undefined,
-        city: undefined,
-        country: undefined,
-        main: undefined,
+        temperatureC: null,
+        city: null,
+        country: null,
+        main: null,
     });
 
     // Get the user's current position using the browser's geolocation
@@ -37,7 +37,7 @@ const Weather = () => {
         return new Promise((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(resolve, reject, {
                 enableHighAccuracy: true,
-                timeout: 5000,
+                timeout: 10000, // Increased timeout to 10 seconds
                 maximumAge: 0,
             });
         });
@@ -47,7 +47,7 @@ const Weather = () => {
     const fetchWeather = async (latitude, longitude) => {
         try {
             const response = await fetch(
-                `https://api.weatherapi.com/v1/current.json?key=${apikeys.key}&q=${latitude},${longitude}`
+                `${apikeys.base}/current.json?key=${apikeys.key}&q=${latitude},${longitude}`
             );
             if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -57,7 +57,7 @@ const Weather = () => {
                 temperatureC: Math.round(data.current.temp_c),
                 city: data.location.name,
                 country: data.location.country,
-                main: data.current.condition.text,  // e.g., "Sunny", "Cloudy", etc.
+                main: data.current.condition.text,
             });
             setLocation({ lat: latitude, lon: longitude });
         } catch (error) {
@@ -67,43 +67,50 @@ const Weather = () => {
     };
 
     useEffect(() => {
-        if (navigator.geolocation) {
-            getPosition()
-                .then((position) => {
+        const getLocationAndFetchWeather = async () => {
+            if (navigator.geolocation) {
+                try {
+                    const position = await getPosition();
                     fetchWeather(position.coords.latitude, position.coords.longitude);
-                })
-                .catch((error) => {
+                } catch (error) {
                     console.error("Error getting location:", error);
                     // Fallback to a default location
-                    fetchWeather(44.24, 18.22); // Default to Bosnia and Herzegovina
-                    alert("Location services are disabled.");
-                });
-        } else {
-            alert("Geolocation not available");
-        }
+                    setErrorMessage("Location services are disabled. Using fallback location.");
+                    fetchWeather(44.24, 18.22); // Fallback to Bosnia and Herzegovina
+                }
+            } else {
+                setErrorMessage("Geolocation not available.");
+            }
+        };
 
+        getLocationAndFetchWeather();
+
+        // Refresh weather data every 10 minutes
         const timerID = setInterval(() => {
             if (location.lat && location.lon) {
                 fetchWeather(location.lat, location.lon);
             }
-        }, 600000); // Refresh every 10 minutes
+        }, 600000); // 600,000 ms = 10 minutes
 
-        return () => clearInterval(timerID);
+        return () => clearInterval(timerID); // Cleanup interval on component unmount
     }, [location.lat, location.lon]);
 
+    // Update the current time every second
     useEffect(() => {
         const timeInterval = setInterval(() => {
             setTime(new Date());
-        }, 1000); // Update time every second
+        }, 1000); // 1000 ms = 1 second
 
-        return () => clearInterval(timeInterval);
+        return () => clearInterval(timeInterval); // Cleanup interval on component unmount
     }, []);
 
+    // Display error message if any
     if (errorMessage) {
         return <h3 style={{ color: "red" }}>{errorMessage}</h3>;
     }
 
-    if (weatherData.temperatureC !== undefined) {
+    // Display weather data if available
+    if (weatherData.temperatureC !== null) {
         return (
             <>
                 <div className="city">
@@ -129,20 +136,21 @@ const Weather = () => {
                 <Forecast weatherType={weatherData.main} />
             </>
         );
-    } else {
-        return (
-            <>
-                <img src={loader} style={{ width: "50%", WebkitUserDrag: "none" }} alt="Loading" />
-                <h3 style={{ color: "white", fontSize: "22px", fontWeight: "600" }}>
-                    Detecting your location
-                </h3>
-                <h3 style={{ color: "white", marginTop: "10px" }}>
-                    Your current location will be displayed on the App <br />
-                    & used for calculating real-time weather.
-                </h3>
-            </>
-        );
     }
+
+    // Display loader while fetching weather data
+    return (
+        <>
+            <img src={loader} style={{ width: "50%", WebkitUserDrag: "none" }} alt="Loading" />
+            <h3 style={{ color: "white", fontSize: "22px", fontWeight: "600" }}>
+                Detecting your location...
+            </h3>
+            <h3 style={{ color: "white", marginTop: "10px" }}>
+                Your current location will be displayed on the App <br />
+                & used for calculating real-time weather.
+            </h3>
+        </>
+    );
 };
 
 export default Weather;

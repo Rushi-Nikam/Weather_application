@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import apiKeys from "./apikeys"; // Ensure this exports your API key
+import Weather from "./Currentlocation";
 
 const WeeklyForecast = () => {
     const [forecastData, setForecastData] = useState(null);
@@ -42,7 +43,7 @@ const WeeklyForecast = () => {
     if (!forecastData) {
         return <p>Loading...</p>;
     }
-
+    
     return (
         <div className="weekly-forecast">
             <h2>Weekly Forecast for {city}</h2>
@@ -59,19 +60,22 @@ const WeeklyForecast = () => {
             </form>
 
             <ul className="data">
-                {forecastData.map((day) => ( 
-                    <li key={day.date}>
-                        <h3>{day.date}</h3>
-                        <p>Condition: {day.day.condition.text}</p>
-                        <p>Max Temp: {day.day.maxtemp_c}°C</p>
-                        <p>Min Temp: {day.day.mintemp_c}°C</p>
-                        <p>Humidity: {day.day.avghumidity}%</p>
-                        <img src={day.day.condition.icon} alt={day.day.condition.text} />
+               
+                {forecastData.map((days) => ( 
+                    
+                    <li key={days.date}>
+                        <h3>{days.date}</h3> 
+                        <p>Condition: {days.day.condition.text}</p>
+                        <p>Max Temp: {days.day.maxtemp_c}°C</p>
+                        <p>Min Temp: {days.day.mintemp_c}°C</p>
+                        <p>Humidity: {days.day.avghumidity}%</p>
+                        <img src={days.day.condition.icon} alt={days.day.condition.text} />
                     </li>
                 ))}
             </ul>
         </div>
     );
+    
 };
 
 export default WeeklyForecast;
