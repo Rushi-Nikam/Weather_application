@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import apiKeys from "./apikeys"; // Ensure this exports your API key
+import apiKeys from "./apikeys"; 
 import { CiSearch } from "react-icons/ci";
 
 const WeeklyForecast = () => {
     const [forecastData, setForecastData] = useState(null);
     const [error, setError] = useState(null);
-    const [city, setCity] = useState("Pune"); // Default city
+    const [city, setCity] = useState("Pune"); 
     const [currentTempC, setCurrentTempC] = useState(null);
     const [currentTempF, setCurrentTempF] = useState(null);
     const [weatherData, setWeatherData] = useState({
@@ -26,13 +26,13 @@ const WeeklyForecast = () => {
             }
             const data = await response.json();
             setForecastData(data.forecast.forecastday);
-            setCurrentTempC(data.current.temp_c); // Extract the exact temp in Celsius
-            setCurrentTempF(data.current.temp_f); // Extract the exact temp in Fahrenheit
+            setCurrentTempC(data.current.temp_c); 
+            setCurrentTempF(data.current.temp_f); 
             setWeatherData({
                 temperatureC: Math.round(data.current.temp_c),
                 cities: data.location.name,
                 country: data.location.country,
-                main: data.current.condition.text,  // e.g., "Sunny", "Cloudy", etc.
+                main: data.current.condition.text, 
             });
         } catch (err) {
             setError("Failed to fetch forecast data.");
@@ -49,7 +49,7 @@ const WeeklyForecast = () => {
         const newCity = e.target.city.value;
         if (newCity.trim()) {
             setCity(newCity.trim());
-            e.target.city.value = ""; // Clear input field
+            e.target.city.value = ""; 
         }
     };
 

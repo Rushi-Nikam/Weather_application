@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import apikeys from "./apikeys"; // Make sure apikeys has { key: "your_api_key", base: "https://api.weatherapi.com/v1/current" }
+import apikeys from "./apikeys"; 
 import Forecast from "./Forecast";
 import loader from '/images/WeatherIcons.gif';
 
-// Utility function to format the date
 const dateBuilder = (d) => {
     const months = [
         "January", "February", "March", "April", "May", "June", "July",
@@ -72,7 +71,7 @@ const Weather = () => {
                 })
                 .catch((error) => {
                     console.error("Error getting location:", error);
-                    fetchWeather(44.24, 18.22); // Default location
+                    fetchWeather(44.24, 18.22); 
                     alert("Location services are disabled.");
                 });
         } else {
@@ -83,7 +82,7 @@ const Weather = () => {
             if (location.lat && location.lon) {
                 fetchWeather(location.lat, location.lon);
             }
-        }, 600000); // Refresh every 10 minutes
+        }, 6000); 
 
         return () => clearInterval(timerID);
     }, [location.lat, location.lon]);
@@ -91,7 +90,7 @@ const Weather = () => {
     useEffect(() => {
         const timeInterval = setInterval(() => {
             setTime(new Date());
-        }, 1000); // Update time every second
+        }, 1000); 
 
         return () => clearInterval(timeInterval);
     }, []);
