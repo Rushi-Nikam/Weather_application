@@ -194,7 +194,7 @@ img {
 /*-- Index-Page-Styling --*/
 
 body {
- background: url("https://media.istockphoto.com/id/1194849760/photo/futuristic-high-speed-light-tail-with-night-city-background.jpg?s=2048x2048&w=is&k=20&c=VTfW2wBIvo8x0Qn-2EX921jblvhSm9JbYn21YQoCAu4=");
+ background: url("https://cdn.pixabay.com/photo/2022/08/01/12/36/city-7358078_1280.jpg");
 background-repeat: no-repeat;
 background-attachment: fixed;
 background-position: center;
@@ -242,7 +242,7 @@ h1 {
   width: 60%;
   height: 100%;
   float: left;
-  background: url("https://media.istockphoto.com/id/517643357/photo/thunderstorm-lightning-with-dark-cloudy-sky.jpg?s=2048x2048&w=is&k=20&c=vaaiso6ef73OsMGVKSDLedOtv5aKEsRPJvIA_jXASFM=");
+  background: url("https://cdn.pixabay.com/photo/2020/03/24/11/21/thunder-4963719_1280.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   -webkit-background-size: cover;
@@ -307,7 +307,7 @@ div#txt {
 
 .temperature p {
   font-family: "Raleway", sans-serif;
-  font-size: 80px;
+  font-size: 60px;
   font-weight: 100;
   margin: 0 40px;
 }
