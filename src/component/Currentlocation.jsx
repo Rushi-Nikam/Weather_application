@@ -32,7 +32,6 @@ const Weather = () => {
         main: undefined,
     });
 
-    // Get the user's current position using the browser's geolocation
     const getPosition = () => {
         return new Promise((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(resolve, reject, {
@@ -43,7 +42,6 @@ const Weather = () => {
         });
     };
 
-    // Fetch weather data from WeatherAPI based on latitude and longitude
     const fetchWeather = async (latitude, longitude) => {
         try {
             const response = await fetch(
@@ -57,7 +55,7 @@ const Weather = () => {
                 temperatureC: Math.round(data.current.temp_c),
                 city: data.location.name,
                 country: data.location.country,
-                main: data.current.condition.text,  // e.g., "Sunny", "Cloudy", etc.
+                main: data.current.condition.text,
             });
             setLocation({ lat: latitude, lon: longitude });
         } catch (error) {
@@ -74,8 +72,7 @@ const Weather = () => {
                 })
                 .catch((error) => {
                     console.error("Error getting location:", error);
-                    // Fallback to a default location
-                    fetchWeather(44.24, 18.22); // Default to Bosnia and Herzegovina
+                    fetchWeather(44.24, 18.22); // Default location
                     alert("Location services are disabled.");
                 });
         } else {
@@ -100,43 +97,40 @@ const Weather = () => {
     }, []);
 
     if (errorMessage) {
-        return <h3 style={{ color: "red" }}>{errorMessage}</h3>;
+        return <h3 className="text-red-500">{errorMessage}</h3>;
     }
 
     if (weatherData.temperatureC !== undefined) {
         return (
             <>
-                <div className="city">
-                    <div className="title">
-                        <h2>{weatherData.city}</h2>
+                <div className="grid w-full lg:w-[60%] h-full float-left bg-[url('https://cdn.pixabay.com/photo/2020/03/24/11/21/thunder-4963719_1280.jpg')] bg-no-repeat bg-cover min-h-[500px] relative lg:bg-[position:-30px_0]">
+                    <div className="absolute top-0 right-0 p-8 text-white font-bold">
+                        <h2>{weatherData.city},</h2>
                         <h3>{weatherData.country}</h3>
                     </div>
-                    <div className="date-time">
-                        <div className="dmy">
-                            <div className="current-time">
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white flex flex-col items-start lg:items-end">
+                        <div className="text-left mb-2">
+                            <div className="text-[35px] lg:text-[40px] font-thin mb-2 tracking-wide">
                                 {time.toLocaleTimeString()}
                             </div>
-                            <div className="current-date">{dateBuilder(new Date())}</div>
+                            <div className="text-[18px] font-thin tracking-wide">{dateBuilder(new Date())}</div>
                         </div>
-                        <div className="temperature">
-                            <p>
-                                {weatherData.temperatureC}°<span>C</span>
-                            </p>
+                        <div className="text-[60px] lg:text-[80px] font-thin">
+                            {weatherData.temperatureC}°<span className="text-[40px]">C</span>
                         </div>
                     </div>
                 </div>
-                {/* Pass the weather main type to the Forecast component */}
                 <Forecast weatherType={weatherData.main} />
             </>
         );
     } else {
         return (
             <>
-                <img src={loader} style={{ width: "50%", WebkitUserDrag: "none" }} alt="Loading" />
-                <h3 style={{ color: "white", fontSize: "22px", fontWeight: "600" }}>
+                <img src={loader} className="w-[50%] mx-auto" alt="Loading" />
+                <h3 className="text-white text-lg font-semibold text-center">
                     Detecting your location
                 </h3>
-                <h3 style={{ color: "white", marginTop: "10px" }}>
+                <h3 className="text-white text-center mt-2">
                     Your current location will be displayed on the App <br />
                     & used for calculating real-time weather.
                 </h3>

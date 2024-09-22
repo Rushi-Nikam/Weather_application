@@ -376,11 +376,7 @@ div#txt {
 .copyright p a:hover {
   color: #ffeb3b;
 }
-.Main_container{
-  display: flex;
-  gap: 10vh;
-  margin: 10px auto;
-}
+
   
 /*-- //Index-Page-Styling --*/
 
