@@ -1,8 +1,25 @@
-# React + Vite
+# Live Weather Forecast App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The **Live Weather Forecast App** is a responsive web application built using React.js, which delivers  weather updates by integrating a weather API. Users can easily search for their location to get  weather conditions, forecasts, and additional details such as temperature, humidity, and more.
 
-Currently, two official plugins are available:
+## Features
+- **Fetch Weather Data**: Get  weather information, including temperature, humidity, wind speed, and more.
+- **Location Search**: Users can search for weather updates by entering a city or location name.
+- **Weather Forecast**: Provides daily and weekly weather forecasts.
+- **Responsive Design**: The app is accessible on both desktop and mobile devices for a seamless user experience.
+- **User-Friendly Interface**: Simple, clean, and intuitive design for easy navigation.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  ## Tech Stack
+- **Frontend**: 
+  - React.js
+  -TailwindCSS
+- **API**: 
+  - Weather API (e.g., Free Weather API or similar)
+- **State Management**:
+
+  ![image](https://github.com/user-attachments/assets/530b94f7-0fcf-45d1-9aed-a4687e5dfe89)
+  ![image](https://github.com/user-attachments/assets/1235b1cf-24ce-42cd-ae21-8d57ac04db44)
+
+
+  - React Hooks (for managing local state)
+
