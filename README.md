@@ -17,7 +17,10 @@ The **Live Weather Forecast App** is a responsive web application built using Re
   - Weather API (e.g., Free Weather API or similar)
 - **State Management**:
 
-  ![image](https://github.com/user-attachments/assets/530b94f7-0fcf-45d1-9aed-a4687e5dfe89)
+ Application image
+  ![image](https://github.com/user-attachments/assets/aa8703f0-cb6e-4915-af18-8508d5834ad1)
+
+  7 day forecast
   ![image](https://github.com/user-attachments/assets/1235b1cf-24ce-42cd-ae21-8d57ac04db44)
 
 
